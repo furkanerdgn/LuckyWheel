@@ -13,8 +13,6 @@ import Wheel from './components/Wheel.jsx'
 function App() {
 
   const { activities, setActivities } = useContext(ActivityContext)
-  const [desire, setDesire] = useState("")
-  const [ac, setAc] = useState("")
   const [placeholderVal, setPlaceholderVal] = useState(0)
   const [currentId, setCurrentId] = useState(0)
   const { isOpen, onToggle } = useDisclosure()
@@ -42,14 +40,10 @@ function App() {
   });
 
   const handleDeleteActivity = (inx) => {
-    console.log(inx)
     const updatedActivities = activities.filter((item) => item.id !== inx);
     setActivities(updatedActivities);
   };
 
-  useEffect(() => {
-    console.log(activities)
-  }, [activities])
 
 
   const placeholder = ["Reading Book",
@@ -76,12 +70,12 @@ function App() {
   top="0"
   left="0"
   zIndex="-1"
->
+> 
 
     <VStack>
 
-    <Slide direction="left" in={!isOpen} style={{ zIndex: 10 }}>
-    <Box width="80%" height="100vh"  bg="whiteAlpha.800">
+    <Slide direction="left" overflowY="auto"  in={!isOpen} style={{ zIndex: 10 }}>
+    <Box width="80%" minHeight="100vh"  bg="whiteAlpha.800">
 
       <form onSubmit={formik.handleSubmit}> 
 
@@ -94,15 +88,15 @@ function App() {
       justifyContent="center"
 
       >
-        <Heading flexBasis="100%" color="pink" textAlign="center" margin={10} size="3xl">Enter Your Activity</Heading>
+        <Heading flexBasis="100%" color="pink" textAlign="center" margin={10} size={["2xl","3xl"]}>Enter Your Activity</Heading>
       <Flex justify="center" alignItems="flex-end" color="black" gap={2} >
         <Flex direction="column">
-        <FormLabel>Activity</FormLabel>
-        <Input type="text" id='activity' value={formik.values.activity} onChange={formik.handleChange}  placeholder={placeholder[placeholderVal]} />
+        <FormLabel fontSize={["xs","lg"]}>Activity</FormLabel>
+        <Input type="text" id='activity' value={formik.values.activity} fontSize={["xs","lg"]} onChange={formik.handleChange}  placeholder={placeholder[placeholderVal]} />
         </Flex>
         <Flex direction="column">
-        <FormLabel>How much do you want</FormLabel>
-        <Input type="number" id='desire' value={formik.values.desire} onChange={formik.handleChange}  placeholder="1-30" />
+        <FormLabel marginRight="0" fontSize={["xs","lg"]}>How much do you want</FormLabel>
+        <Input type="number" id='desire' value={formik.values.desire} fontSize={["xs","lg"]} onChange={formik.handleChange}  placeholder="1-30" />
         </Flex>
 
       </Flex>
@@ -118,14 +112,15 @@ function App() {
           </Text> : null
         }
       </Box>
-      <Button flexBasis="100%" type='submit'  marginX="22rem" borderRadius={50} marginTop={4} colorScheme="pink" size="md" >
+      <Button flexBasis="100%" type='submit'  marginX="22rem" borderRadius={50} marginTop={[1,4]} colorScheme="pink" size="md" >
         <ChevronDownIcon boxSize="1.4em" />
       </Button>
       </Flex>
         </form>
-        <Heading color="pink" textAlign="center" margin={10} size="xl">Your Activities</Heading>
+        <Heading color="pink" textAlign="center" margin={[3,10]} size="xl">Your Activities</Heading>
         <Grid
-        templateColumns="repeat(4, 1fr)"
+        templateColumns={["repeat(1, 1fr)","repeat(2, 1fr)","repeat(3, 1fr)","repeat(4, 1fr)"]}
+        templateRows={["repeat(1, 1fr)","repeat(1, 1fr)","repeat(1, 1fr)","repeat(1, 1fr)"]}
         gap={4}
         marginLeft={10}
         marginRight={10}
@@ -133,15 +128,15 @@ function App() {
         >
           {activities.map((activity) => {
             return (
-              <Box colSpan={1} key={activity.id}  rowSpan={1} bg="whiteAlpha.800" borderRadius={10} padding={4} >
-              <Flex flexDir="column" height="100%" gap={4} fontSize="md" textAlign="center" padding={2} justifyContent="space-between">
+              <GridItem colSpan={1} key={activity.id} fontSize={["sm","lg"]} rowSpan={1} bg="whiteAlpha.800" borderRadius={10} padding={4} >
+              <Flex flexDir="column" height="100%" gap={4}  textAlign="center" padding={2} justifyContent="space-between">
                 <Text width="100%"  fontWeight="600" color="black">{activity.activity}</Text> 
                 <Text width="100%" color="black">{activity.desire}</Text>                   
               <Button onClick={() => handleDeleteActivity(activity.id)} colorScheme="pink" size="md" >
                 <DeleteIcon />
               </Button> 
               </Flex>
-              </Box>
+              </GridItem>
             )
           })}
         </Grid>
@@ -159,7 +154,7 @@ function App() {
 
         <Slide direction="right" in={isOpen} style={{ zIndex: 10 }}>
         
-          <Box width="80%" height="100vh" position="absolute" right="0" border="1px solid red" >
+          <Box width="80%" height="100vh" position="absolute" flexWrap="wrap" justifyContent="center" right="0" display="flex" >
           <Wheel/>
           </Box>
         
