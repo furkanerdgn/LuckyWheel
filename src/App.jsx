@@ -61,8 +61,7 @@ function App() {
   return (
     <>
       <Box
-  bg="background: rgb(238,174,202);
-  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(178,148,233,0.34226190476190477) 100%);"
+  bg="linear-gradient(circle, rgba(238,174,202,1) 0%, rgba(178,148,233,0.34226190476190477) 100%)"
   color="brand.100"
   width="100%"
   minHeight="100vh"  // Use minHeight instead of height
@@ -100,7 +99,7 @@ function App() {
         </Flex>
 
       </Flex>
-      <Box flexBasis="100%" gap={4} justifyContent="center" display="flex" textAlign="center"color="red" fontWeight="600" size="md" >
+      <Box flexBasis="100%" gap={4} justifyContent="center" display="flex" textAlign="center" color="red" fontWeight="600" size="md" >
         {
           formik.errors.desire && formik.touched.desire ? <Text >
           {formik.errors.desire}
